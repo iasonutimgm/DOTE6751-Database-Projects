@@ -1,0 +1,13 @@
+﻿job_id,title,company_name,city,required_total,matched_skills,match_pct,missing_required,already_applied
+6,Merchant Manager,Amazon,Austin,3,2,66.7,Negotiation,0
+30,Growth Analyst,ByteDance,Beijing,3,2,66.7,Statistical Analysis,0
+31,Growth Analyst,Tencent,Shenzhen,3,2,66.7,Statistical Analysis,0
+40,Consultant,McKinsey,Seattle,3,2,66.7,Data Modelling,0
+43,Technology Auditor,Goldman Sachs,Austin,3,2,66.7,Python,0
+44,Analyst,JPMorgan Chase,Seattle,3,2,66.7,Statistical Analysis,0
+46,Analyst,JPMorgan Chase,Seattle,3,2,66.7,Statistical Analysis,0
+47,Analyst,HSBC,London,3,2,66.7,Statistical Analysis,0
+83,Merchant Manager,Shopee,Singapore,3,2,66.7,GraphQL,1
+89,Merchant Manager,JD.com,Beijing,3,2,66.7,Negotiation,0
+96,Network Engineer,Ericsson,Stockholm,3,2,66.7,Agile Delivery,0
+100,Vice President,OCBC Bank,Singapore,3,2,66.7,Python,0

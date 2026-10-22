@@ -1,0 +1,16 @@
+﻿skill_name,skill_family,required_postings,preferred_postings,postings_asking,pct_of_postings
+SQL,LANGUAGE,56,3,59,51.3
+Python,LANGUAGE,46,4,50,43.5
+Stakeholder Management,SOFT,45,3,48,41.7
+Agile Delivery,SOFT,29,4,33,28.7
+Statistical Analysis,DATA,28,3,31,27.0
+Technical Writing,SOFT,16,15,31,27.0
+Java,LANGUAGE,14,2,16,13.9
+A/B Testing,DATA,12,6,18,15.7
+Airflow,DATA,10,1,11,9.6
+Kubernetes,FRAMEWORK,9,5,14,12.2
+Roadmapping,PRODUCT,9,4,13,11.3
+PostgreSQL,DATABASE,9,2,11,9.6
+Product Discovery,PRODUCT,9,2,11,9.6
+ETL Pipelines,DATA,9,0,9,7.8
+C++,LANGUAGE,8,0,8,7.0

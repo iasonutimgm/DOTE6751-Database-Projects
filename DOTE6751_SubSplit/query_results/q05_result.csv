@@ -1,0 +1,7 @@
+﻿group_id,host_name,brand,region,status,credit_score,password_changes_30d,no_access_complaints_30d
+34,Jason MA,Netflix,HK,ACTIVE,39,6,2
+12,Mandy FUNG,Disney+,HK,FULL,60,5,3
+26,Lok TSANG,Disney+,HK,ACTIVE,60,5,3
+9,Mei MA,Spotify,HK,RECRUITING,60,5,3
+8,Grace CHAN,Netflix,HK,ACTIVE,60,4,6
+35,Yitong CHEUNG,Apple One,HK,FULL,30,3,4

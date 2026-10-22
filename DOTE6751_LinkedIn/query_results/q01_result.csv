@@ -1,0 +1,8 @@
+﻿job_id,title,company_name,industry,seniority,work_mode,salary_mid_usd,days_open,applicants
+100,Vice President,OCBC Bank,Banking,PRINCIPAL,HYBRID,266000,319,6
+36,Data Scientist,Grab,Internet,LEAD,HYBRID,206000,728,3
+101,Technology Auditor,OCBC Bank,Banking,SENIOR,HYBRID,156500,730,1
+99,Risk Analyst,DBS Bank,Banking,MID,HYBRID,112500,524,2
+38,Senior Software Engineer,Sea Group,Internet,MID,ONSITE,112500,281,1
+83,Merchant Manager,Shopee,E-commerce,JUNIOR,HYBRID,80000,91,2
+82,Backend Engineer,Shopee,E-commerce,JUNIOR,HYBRID,74000,857,1

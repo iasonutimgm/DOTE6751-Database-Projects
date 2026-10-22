@@ -1,0 +1,249 @@
+[
+  {
+    "q": "Q01",
+    "title": "Precise seat hunting: recruiting Spotify-HK groups, exactly one seat left, trustworthy host",
+    "rows": 2,
+    "ms": 6,
+    "cols": [
+      "group_id",
+      "brand",
+      "region",
+      "seat_price",
+      "host_name",
+      "host_credit",
+      "seats_taken",
+      "max_seats",
+      "seats_left"
+    ]
+  },
+  {
+    "q": "Q02",
+    "title": "Which five services do students actually occupy?",
+    "rows": 5,
+    "ms": 2,
+    "cols": [
+      "brand",
+      "region",
+      "student_seats",
+      "group_count"
+    ]
+  },
+  {
+    "q": "Q03",
+    "title": "How long does it take to fill a group, by service?",
+    "rows": 8,
+    "ms": 1,
+    "cols": [
+      "brand",
+      "region",
+      "groups_filled",
+      "avg_hours",
+      "fastest_hours",
+      "slowest_hours"
+    ]
+  },
+  {
+    "q": "Q04",
+    "title": "Platform revenue: monthly recurring revenue (MRR) from the 5% fee",
+    "rows": 18,
+    "ms": 6,
+    "cols": [
+      "ym",
+      "payouts",
+      "gross_released",
+      "platform_revenue"
+    ]
+  },
+  {
+    "q": "Q05",
+    "title": "Risk control: groups that changed the passphrase >= 3 times in 30 days AND drew >= 2 \"cannot log in\" complaints",
+    "rows": 6,
+    "ms": 3,
+    "cols": [
+      "group_id",
+      "host_name",
+      "brand",
+      "region",
+      "status",
+      "credit_score",
+      "password_changes_30d",
+      "no_access_complaints_30d"
+    ]
+  },
+  {
+    "q": "Q06",
+    "title": "One member's footprint: every seat they hold, with money at stake",
+    "rows": 3,
+    "ms": 1,
+    "cols": [
+      "display_name",
+      "brand",
+      "region",
+      "group_id",
+      "seat_status",
+      "joined_at",
+      "expires_at",
+      "total_prepaid",
+      "remaining_amount",
+      "escrow_status"
+    ]
+  },
+  {
+    "q": "Q07",
+    "title": "Is the resale price fair? Seat price as a share of the official plan",
+    "rows": 8,
+    "ms": 1,
+    "cols": [
+      "brand",
+      "region",
+      "max_seats",
+      "official_monthly_price",
+      "avg_seat_price",
+      "basket_pct_of_official"
+    ]
+  },
+  {
+    "q": "Q08",
+    "title": "Host leaderboard: who actually earns, after the platform's cut",
+    "rows": 10,
+    "ms": 9,
+    "cols": [
+      "display_name",
+      "credit_score",
+      "groups_hosted",
+      "net_income"
+    ]
+  },
+  {
+    "q": "Q09",
+    "title": "Refund rate by service: where do members ask for their money back?",
+    "rows": 8,
+    "ms": 1,
+    "cols": [
+      "brand",
+      "region",
+      "seats",
+      "refunded_seats",
+      "refund_rate_pct"
+    ]
+  },
+  {
+    "q": "Q10",
+    "title": "Two consecutive blocked payouts: a group that stopped paying without being closed",
+    "rows": 26,
+    "ms": 10,
+    "cols": [
+      "escrow_id",
+      "release_month"
+    ]
+  },
+  {
+    "q": "Q11",
+    "title": "Balance audit: stored escrow balance vs the ledger that produced it",
+    "rows": 10,
+    "ms": 11,
+    "cols": [
+      "escrow_id",
+      "total_prepaid",
+      "released_amount",
+      "ledger_released",
+      "remaining_amount",
+      "drift"
+    ]
+  },
+  {
+    "q": "Q12",
+    "title": "How fast do groups fill? Distribution instead of an average",
+    "rows": 3,
+    "ms": 0,
+    "cols": [
+      "fill_bucket",
+      "group_count"
+    ]
+  },
+  {
+    "q": "Q13",
+    "title": "Stale recruiting groups: open for more than 14 days and still short of people",
+    "rows": 9,
+    "ms": 1,
+    "cols": [
+      "group_id",
+      "brand",
+      "region",
+      "host_name",
+      "seats_taken",
+      "max_seats",
+      "seats_left",
+      "age_days"
+    ]
+  },
+  {
+    "q": "Q14",
+    "title": "Hosts with a damaged credit score who are still recruiting",
+    "rows": 2,
+    "ms": 1,
+    "cols": [
+      "user_id",
+      "display_name",
+      "credit_score",
+      "group_id",
+      "brand",
+      "region",
+      "status"
+    ]
+  },
+  {
+    "q": "Q15",
+    "title": "Occupancy check: groups at or over their seat ceiling",
+    "rows": 12,
+    "ms": 2,
+    "cols": [
+      "group_id",
+      "brand",
+      "region",
+      "status",
+      "seats_taken",
+      "max_seats",
+      "seats_left"
+    ]
+  },
+  {
+    "q": "Q16",
+    "title": "Complaint mix in the last 30 days, with handling time",
+    "rows": 8,
+    "ms": 0,
+    "cols": [
+      "category",
+      "dispute_status",
+      "complaints",
+      "avg_hours_to_close"
+    ]
+  },
+  {
+    "q": "Q17",
+    "title": "Month-over-month change in platform fee income",
+    "rows": 18,
+    "ms": 6,
+    "cols": [
+      "release_month",
+      "platform_fee",
+      "prev_month_fee",
+      "mom_pct"
+    ]
+  },
+  {
+    "q": "Q18",
+    "title": "Recommendation slot: other recruiting groups on the services this member already pays for",
+    "rows": 5,
+    "ms": 4,
+    "cols": [
+      "brand",
+      "region",
+      "group_id",
+      "seat_price",
+      "seats_left",
+      "host_name",
+      "host_credit"
+    ]
+  }
+]

@@ -1,0 +1,4 @@
+﻿display_name,brand,region,group_id,seat_status,joined_at,expires_at,total_prepaid,remaining_amount,escrow_status
+Ivy CHEUNG,Netflix,HK,8,ACTIVE,2025-06-13 01:00:00,2026-06-13 01:00:00,188.40,31.40,PARTIAL
+Ivy CHEUNG,Netflix,HK,2,ACTIVE,2025-07-08 01:00:00,2026-07-08 01:00:00,188.28,0.00,RELEASED
+Ivy CHEUNG,YouTube,HK,13,ACTIVE,2026-07-30 23:00:00,2027-07-30 23:00:00,251.16,188.37,PARTIAL

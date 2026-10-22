@@ -1,0 +1,284 @@
+[
+  {
+    "q": "Q01",
+    "title": "Open roles in Singapore: pay band, how long the seat has been empty, how contested it is",
+    "rows": 7,
+    "ms": 3,
+    "cols": [
+      "job_id",
+      "title",
+      "company_name",
+      "industry",
+      "seniority",
+      "work_mode",
+      "salary_mid_usd",
+      "days_open",
+      "applicants"
+    ]
+  },
+  {
+    "q": "Q02",
+    "title": "Talent directory: the deepest open-to-work profiles, with credentials and reach",
+    "rows": 10,
+    "ms": 51,
+    "cols": [
+      "member_id",
+      "full_name",
+      "headline",
+      "city",
+      "skills",
+      "degrees",
+      "degree_levels",
+      "connections"
+    ]
+  },
+  {
+    "q": "Q03",
+    "title": "The five most contested open postings, application by application",
+    "rows": 23,
+    "ms": 2,
+    "cols": [
+      "job_id",
+      "title",
+      "company_name",
+      "applicants",
+      "candidate",
+      "status",
+      "applied_on",
+      "days_since_apply"
+    ]
+  },
+  {
+    "q": "Q04",
+    "title": "What the market actually asks for: skills ranked by hard requirement, with share of all postings",
+    "rows": 15,
+    "ms": 4,
+    "cols": [
+      "skill_name",
+      "skill_family",
+      "required_postings",
+      "preferred_postings",
+      "postings_asking",
+      "pct_of_postings"
+    ]
+  },
+  {
+    "q": "Q05",
+    "title": "Company hiring scorecard: volume, conversion and speed",
+    "rows": 12,
+    "ms": 2,
+    "cols": [
+      "company_name",
+      "industry",
+      "postings",
+      "applications",
+      "hires",
+      "hire_rate_pct",
+      "avg_days_to_hire"
+    ]
+  },
+  {
+    "q": "Q06",
+    "title": "Dormant talent: open to work, experienced, but no application in the last 90 days",
+    "rows": 15,
+    "ms": 4,
+    "cols": [
+      "member_id",
+      "full_name",
+      "city",
+      "years_experience",
+      "skills",
+      "degrees",
+      "applications_since_july"
+    ]
+  },
+  {
+    "q": "Q07",
+    "title": "Which sourcing channel actually converts? Funnel by source channel",
+    "rows": 3,
+    "ms": 2,
+    "cols": [
+      "source_channel",
+      "applications",
+      "interviewed",
+      "offers",
+      "hires",
+      "interview_rate_pct",
+      "offer_rate_from_interview_pct",
+      "end_to_end_hire_rate_pct"
+    ]
+  },
+  {
+    "q": "Q08",
+    "title": "The referral programme: who refers well, and what it costs",
+    "rows": 12,
+    "ms": 4,
+    "cols": [
+      "referrer_id",
+      "referrer",
+      "employer",
+      "referrals",
+      "hires",
+      "hire_rate_pct",
+      "bonus_paid_usd",
+      "bonus_pending_usd"
+    ]
+  },
+  {
+    "q": "Q09",
+    "title": "Skill-gap matching for one candidate (member 231): jobs they half-qualify for, and what they lack",
+    "rows": 12,
+    "ms": 4,
+    "cols": [
+      "job_id",
+      "title",
+      "company_name",
+      "city",
+      "required_total",
+      "matched_skills",
+      "match_pct",
+      "missing_required",
+      "already_applied"
+    ]
+  },
+  {
+    "q": "Q10",
+    "title": "Where the hiring loop spends its time, by seniority",
+    "rows": 6,
+    "ms": 2,
+    "cols": [
+      "seniority",
+      "hires",
+      "days_to_first_interview",
+      "days_across_interviews",
+      "days_to_decision",
+      "total_days",
+      "avg_rounds"
+    ]
+  },
+  {
+    "q": "Q11",
+    "title": "Interviewer calibration: who runs a hard bar, who passes almost everyone?",
+    "rows": 11,
+    "ms": 3,
+    "cols": [
+      "interviewer",
+      "employer",
+      "interviews",
+      "decided",
+      "pass_rate_pct",
+      "avg_score",
+      "avg_days_from_apply"
+    ]
+  },
+  {
+    "q": "Q12",
+    "title": "Where the company's own demand outruns its internal supply",
+    "rows": 15,
+    "ms": 4,
+    "cols": [
+      "company_name",
+      "skill_name",
+      "skill_family",
+      "postings_asking",
+      "internal_holders",
+      "unmet_demand"
+    ]
+  },
+  {
+    "q": "Q13",
+    "title": "Postings whose screening stage has gone quiet",
+    "rows": 12,
+    "ms": 3,
+    "cols": [
+      "application_id",
+      "company_name",
+      "title",
+      "candidate",
+      "recruiter",
+      "days_in_screening",
+      "competing_applicants"
+    ]
+  },
+  {
+    "q": "Q14",
+    "title": "Hiring momentum: monthly volume, 3-month moving average, running hires, month-on-month change",
+    "rows": 27,
+    "ms": 3,
+    "cols": [
+      "ym",
+      "applications",
+      "interviews",
+      "hires",
+      "app_3m_moving_avg",
+      "cumulative_hires",
+      "app_mom_change"
+    ]
+  },
+  {
+    "q": "Q15",
+    "title": "Which company converts best inside its own industry?",
+    "rows": 24,
+    "ms": 3,
+    "cols": [
+      "company_name",
+      "industry",
+      "postings",
+      "applications",
+      "hires",
+      "hire_rate_pct",
+      "rank_in_industry",
+      "rank_by_volume",
+      "pct_of_industry_hires"
+    ]
+  },
+  {
+    "q": "Q16",
+    "title": "Recruiter leaderboard: volume, conversion, rank and distance to the leader",
+    "rows": 12,
+    "ms": 4,
+    "cols": [
+      "recruiter",
+      "employer",
+      "postings",
+      "applications",
+      "hires",
+      "hire_rate_pct",
+      "overall_rank",
+      "conversion_percentile",
+      "hires_of_rank_above"
+    ]
+  },
+  {
+    "q": "Q17",
+    "title": "Skill scarcity index: demand against proven supply, quartile-ranked",
+    "rows": 30,
+    "ms": 4,
+    "cols": [
+      "skill_name",
+      "skill_family",
+      "is_emerging",
+      "postings",
+      "strong_holders",
+      "postings_per_holder",
+      "scarcity_quartile",
+      "market_state"
+    ]
+  },
+  {
+    "q": "Q18",
+    "title": "Warm-intro sourcing: candidates within two connection hops of the hiring team",
+    "rows": 15,
+    "ms": 10,
+    "cols": [
+      "member_id",
+      "full_name",
+      "city",
+      "years_experience",
+      "degrees_away",
+      "bridge_to_hiring_team",
+      "required_held",
+      "required_total"
+    ]
+  }
+]

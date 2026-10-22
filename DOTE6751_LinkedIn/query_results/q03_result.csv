@@ -1,0 +1,24 @@
+﻿job_id,title,company_name,applicants,candidate,status,applied_on,days_since_apply
+100,Vice President,OCBC Bank,6,Yan Sun,REJECTED,2025-12-20,299
+100,Vice President,OCBC Bank,6,Felix Zhu,REJECTED,2025-12-24,295
+100,Vice President,OCBC Bank,6,Clara He,INTERVIEW,2026-01-12,276
+100,Vice President,OCBC Bank,6,Elena Hall,SUBMITTED,2026-01-19,269
+100,Vice President,OCBC Bank,6,Divya Singh,SCREENING,2026-02-15,242
+100,Vice President,OCBC Bank,6,Nina Jones,WITHDRAWN,2026-03-13,216
+109,Clinical Data Analyst,AstraZeneca,5,Lucas Hall,OFFER,2025-10-27,353
+109,Clinical Data Analyst,AstraZeneca,5,Haruto Guo,REJECTED,2025-12-02,317
+109,Clinical Data Analyst,AstraZeneca,5,Haruto Jackson,REJECTED,2025-12-10,309
+109,Clinical Data Analyst,AstraZeneca,5,Leo Tanaka,SUBMITTED,2026-02-08,249
+109,Clinical Data Analyst,AstraZeneca,5,Leo Martin,INTERVIEW,2026-02-09,248
+30,Growth Analyst,ByteDance,4,Zoe Choi,INTERVIEW,2025-11-24,325
+30,Growth Analyst,ByteDance,4,Anna Park,REJECTED,2025-12-22,297
+30,Growth Analyst,ByteDance,4,Rui Johnson,WITHDRAWN,2026-01-27,261
+30,Growth Analyst,ByteDance,4,Mia Hall,SUBMITTED,2026-02-08,249
+40,Consultant,McKinsey,4,Noah Taylor,SUBMITTED,2026-09-05,40
+40,Consultant,McKinsey,4,Ren Thomas,SUBMITTED,2026-09-07,38
+40,Consultant,McKinsey,4,Daniel Young,OFFER,2026-09-09,36
+40,Consultant,McKinsey,4,Sarah Smith,SUBMITTED,2026-09-10,35
+41,Engagement Manager,McKinsey,4,Priya Clark,REJECTED,2024-09-27,748
+41,Engagement Manager,McKinsey,4,Pablo Zhu,REJECTED,2024-09-28,747
+41,Engagement Manager,McKinsey,4,Minjun Lee,REJECTED,2024-10-17,728
+41,Engagement Manager,McKinsey,4,Kenji Martin,INTERVIEW,2024-12-16,668

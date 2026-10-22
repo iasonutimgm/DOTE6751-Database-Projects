@@ -1,0 +1,16 @@
+﻿company_name,skill_name,skill_family,postings_asking,internal_holders,unmet_demand
+HSBC,SQL,LANGUAGE,3,1,2
+HSBC,Statistical Analysis,DATA,3,1,2
+HSBC,Stakeholder Management,SOFT,3,1,2
+Tata Consultancy Services,Stakeholder Management,SOFT,3,1,2
+AstraZeneca,Statistical Analysis,DATA,2,0,2
+AstraZeneca,SQL,LANGUAGE,2,0,2
+Bosch,Python,LANGUAGE,2,0,2
+Bosch,C++,LANGUAGE,2,0,2
+Intel,Agile Delivery,SOFT,2,0,2
+Intel,Python,LANGUAGE,2,0,2
+Intel,C++,LANGUAGE,2,0,2
+Maersk,SQL,LANGUAGE,2,0,2
+Maersk,Agile Delivery,SOFT,2,0,2
+Meituan,Roadmapping,PRODUCT,2,0,2
+Meituan,Product Discovery,PRODUCT,2,0,2

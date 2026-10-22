@@ -1,0 +1,13 @@
+﻿group_id,brand,region,status,seats_taken,max_seats,seats_left
+2,Netflix,HK,ACTIVE,6,6,0
+3,Apple One,HK,ACTIVE,6,6,0
+4,Spotify,US,ACTIVE,6,6,0
+5,ChatGPT,HK,FULL,5,5,0
+6,Netflix,US,FULL,6,6,0
+7,Disney+,HK,FULL,4,4,0
+13,YouTube,HK,ACTIVE,5,5,0
+14,ChatGPT,HK,ACTIVE,5,5,0
+15,Spotify,US,ACTIVE,6,6,0
+16,Apple One,HK,ACTIVE,6,6,0
+17,Spotify,US,ACTIVE,6,6,0
+18,Spotify,US,ACTIVE,6,6,0

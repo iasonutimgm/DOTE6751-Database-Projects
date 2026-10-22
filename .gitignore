@@ -1,0 +1,15 @@
+# Local tooling (not part of the project)
+.tools/
+__pycache__/
+*.py[cod]
+.venv/
+Thumbs.db
+desktop.ini
+~$*
+
+# Course materials kept outside the repository
+/DOTE 6751 Project Guidelines.pdf
+/Group Information.pdf
+/数据库设计英文教材.pdf
+/大纲/
+/课件PDF/

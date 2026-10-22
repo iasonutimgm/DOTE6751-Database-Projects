@@ -1,0 +1,13 @@
+﻿company_name,industry,postings,applications,hires,hire_rate_pct,avg_days_to_hire
+Grab,Internet,2,5,2,40.0,42.0
+Oracle,Software,3,6,2,33.3,36.0
+Canva,Software,2,4,1,25.0,36.0
+Palantir,Software,3,4,1,25.0,29.0
+DBS Bank,Banking,2,4,1,25.0,37.0
+Microsoft,Software,3,5,1,20.0,26.0
+Huawei,Telecom,2,5,1,20.0,26.0
+JPMorgan Chase,Banking,4,5,1,20.0,35.0
+Ericsson,Telecom,2,5,1,20.0,37.0
+Allianz,Insurance,2,5,1,20.0,28.0
+Accenture,Consulting,2,7,1,14.3,36.0
+Sea Group,Internet,2,7,1,14.3,38.0

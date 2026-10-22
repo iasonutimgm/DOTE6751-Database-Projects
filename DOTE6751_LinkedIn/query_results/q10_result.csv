@@ -1,0 +1,7 @@
+﻿seniority,hires,days_to_first_interview,days_across_interviews,days_to_decision,total_days,avg_rounds
+JUNIOR,2,7.0,13.0,9.0,29.0,3.0
+MID,5,6.0,20.6,10.8,37.4,3.4
+SENIOR,8,5.8,20.0,10.0,35.8,3.5
+LEAD,3,6.7,19.3,12.3,38.3,3.3
+PRINCIPAL,2,3.5,14.0,13.5,31.0,3.0
+DIRECTOR,1,6.0,18.0,5.0,29.0,3.0

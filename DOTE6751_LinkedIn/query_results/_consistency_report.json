@@ -1,0 +1,153 @@
+{
+  "checks": [
+    {
+      "id": "I1",
+      "rule": "HIRED implies at least three PASS interviews",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I2",
+      "rule": "REJECTED after interviews implies a final FAIL",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I3",
+      "rule": "decided_at is NULL exactly for open statuses",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I4a",
+      "rule": "every REFERRAL application has a referral row",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I4b",
+      "rule": "every referrer currently works at the hiring company",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I5",
+      "rule": "hires per posting never exceed openings",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I6",
+      "rule": "at most one current experience per member",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I7",
+      "rule": "connection edges are stored in canonical order",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I8a",
+      "rule": "applied_at never precedes posted_at",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I8b",
+      "rule": "decided_at never precedes applied_at",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I8c",
+      "rule": "no application after its posting closed",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I9a",
+      "rule": "interviews happen after the application date",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I9b",
+      "rule": "interview rounds are 1..n without gaps",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I10",
+      "rule": "stage implies the right number of interviews",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I11",
+      "rule": "scored interviews carry a score, pending ones do not",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I12",
+      "rule": "nobody refers themselves",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I13",
+      "rule": "no member applies to their current employer",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I14",
+      "rule": "an INTERVIEW-stage application still has an open round",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I15",
+      "rule": "an OFFER-stage application has no failed round",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I16",
+      "rule": "no application to a posting still in DRAFT",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I17",
+      "rule": "all timestamps are inside the snapshot window",
+      "violations": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "I18",
+      "rule": "every job has a recruiter employed somewhere in the record",
+      "violations": 0,
+      "status": "PASS"
+    }
+  ],
+  "facts": {
+    "members": 300,
+    "companies": 60,
+    "postings": 120,
+    "open postings": 84,
+    "applications": 250,
+    "interviews": 210,
+    "referrals": 60,
+    "hires": 21,
+    "connections": 1065,
+    "members with a current employer": 273,
+    "median days to hire": 35.1
+  },
+  "summary": {
+    "checks": 22,
+    "failed": 0
+  }
+}

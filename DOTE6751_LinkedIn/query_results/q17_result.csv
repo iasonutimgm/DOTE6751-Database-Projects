@@ -1,0 +1,31 @@
+﻿skill_name,skill_family,is_emerging,postings,strong_holders,postings_per_holder,scarcity_quartile,market_state
+Java,LANGUAGE,0,16,2,8.00,1,ACUTE
+Terraform,FRAMEWORK,1,6,1,6.00,1,ACUTE
+Negotiation,SOFT,0,8,2,4.00,1,ACUTE
+C++,LANGUAGE,0,8,2,4.00,1,ACUTE
+Go,LANGUAGE,0,4,1,4.00,1,ACUTE
+Airflow,DATA,0,11,3,3.67,1,ACUTE
+Team Leadership,SOFT,0,7,2,3.50,1,ACUTE
+ETL Pipelines,DATA,0,9,3,3.00,2,ACUTE
+Looker,DATA,1,9,3,3.00,2,ACUTE
+Elasticsearch,DATABASE,0,3,1,3.00,1,ACUTE
+GraphQL,FRAMEWORK,1,3,1,3.00,2,ACUTE
+Azure,CLOUD,0,3,1,3.00,2,ACUTE
+Kubernetes,FRAMEWORK,0,14,5,2.80,2,ACUTE
+Spark,FRAMEWORK,0,10,4,2.50,2,ACUTE
+Statistical Analysis,DATA,0,31,15,2.07,2,ACUTE
+Figma,DESIGN,0,4,2,2.00,2,ACUTE
+Roadmapping,PRODUCT,0,13,7,1.86,3,ACUTE
+Product Discovery,PRODUCT,0,11,6,1.83,3,ACUTE
+A/B Testing,DATA,0,18,10,1.80,3,ACUTE
+Data Modelling,DATA,0,5,3,1.67,3,ACUTE
+Python,LANGUAGE,0,50,33,1.52,3,ACUTE
+SQL,LANGUAGE,0,59,39,1.51,3,ACUTE
+MySQL,DATABASE,0,6,4,1.50,3,ACUTE
+AWS,CLOUD,0,8,6,1.33,4,ACUTE
+Agile Delivery,SOFT,0,33,32,1.03,4,ACUTE
+Stakeholder Management,SOFT,0,48,53,0.91,4,TIGHT
+Technical Writing,SOFT,0,31,57,0.54,4,TIGHT
+PostgreSQL,DATABASE,0,11,0,,4,ABUNDANT
+Spring Boot,FRAMEWORK,0,10,0,,4,ABUNDANT
+Pricing Strategy,PRODUCT,0,3,0,,4,ABUNDANT
