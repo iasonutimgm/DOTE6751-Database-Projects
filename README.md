@@ -1,4 +1,4 @@
-# DOTE6751 Database Systems — Group Projects
+# DOTE6751 Database Systems —  Project
 
 Two end-to-end database design and implementation projects for **DOTE 6751 Database Systems**. Both are built for **MySQL 8.0** and include the full design documentation, ER diagrams, SQL implementation, query results, and presentation materials.
 
