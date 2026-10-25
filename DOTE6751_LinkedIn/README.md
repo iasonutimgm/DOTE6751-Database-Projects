@@ -2,7 +2,7 @@
 
 DOTE 6751 Database Systems · Group Project · November 2026
 
-**Start here → `File_Guide.docx`** (English) or **`File_Guide_CN.docx`** (中文). Either one lists
+**Start here → `File_Guide_文件阅读指南/File_Guide.docx`** (English) or **`File_Guide_CN.docx`** (中文). Either one lists
 every file, the order to run them in, and how to prove the database is correct.
 
 ## The three commands you probably want
