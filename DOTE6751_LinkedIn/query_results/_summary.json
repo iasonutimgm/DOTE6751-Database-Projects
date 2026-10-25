@@ -3,7 +3,7 @@
     "q": "Q01",
     "title": "Open roles in Singapore: pay band, how long the seat has been empty, how contested it is",
     "rows": 7,
-    "ms": 3,
+    "ms": 2,
     "cols": [
       "job_id",
       "title",
@@ -20,7 +20,7 @@
     "q": "Q02",
     "title": "Talent directory: the deepest open-to-work profiles, with credentials and reach",
     "rows": 10,
-    "ms": 51,
+    "ms": 50,
     "cols": [
       "member_id",
       "full_name",
@@ -66,7 +66,7 @@
     "q": "Q05",
     "title": "Company hiring scorecard: volume, conversion and speed",
     "rows": 12,
-    "ms": 2,
+    "ms": 3,
     "cols": [
       "company_name",
       "industry",
@@ -81,7 +81,7 @@
     "q": "Q06",
     "title": "Dormant talent: open to work, experienced, but no application in the last 90 days",
     "rows": 15,
-    "ms": 4,
+    "ms": 8,
     "cols": [
       "member_id",
       "full_name",
@@ -112,7 +112,7 @@
     "q": "Q08",
     "title": "The referral programme: who refers well, and what it costs",
     "rows": 12,
-    "ms": 4,
+    "ms": 2,
     "cols": [
       "referrer_id",
       "referrer",
@@ -128,7 +128,7 @@
     "q": "Q09",
     "title": "Skill-gap matching for one candidate (member 231): jobs they half-qualify for, and what they lack",
     "rows": 12,
-    "ms": 4,
+    "ms": 5,
     "cols": [
       "job_id",
       "title",
@@ -145,7 +145,7 @@
     "q": "Q10",
     "title": "Where the hiring loop spends its time, by seniority",
     "rows": 6,
-    "ms": 2,
+    "ms": 1,
     "cols": [
       "seniority",
       "hires",
@@ -160,7 +160,7 @@
     "q": "Q11",
     "title": "Interviewer calibration: who runs a hard bar, who passes almost everyone?",
     "rows": 11,
-    "ms": 3,
+    "ms": 1,
     "cols": [
       "interviewer",
       "employer",
@@ -175,7 +175,7 @@
     "q": "Q12",
     "title": "Where the company's own demand outruns its internal supply",
     "rows": 15,
-    "ms": 4,
+    "ms": 6,
     "cols": [
       "company_name",
       "skill_name",
@@ -253,7 +253,7 @@
     "q": "Q17",
     "title": "Skill scarcity index: demand against proven supply, quartile-ranked",
     "rows": 30,
-    "ms": 4,
+    "ms": 2,
     "cols": [
       "skill_name",
       "skill_family",

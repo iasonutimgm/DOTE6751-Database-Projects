@@ -5068,3 +5068,45 @@ UNION ALL SELECT 'application', COUNT(*) FROM application
 UNION ALL SELECT 'interview', COUNT(*) FROM interview
 UNION ALL SELECT 'referral', COUNT(*) FROM referral
 UNION ALL SELECT 'connection', COUNT(*) FROM connection;
+
+-- ---------------------------------------------------------------------
+-- Consistency repairs found by the cross-table audit.
+-- ---------------------------------------------------------------------
+
+-- 1. A connection cannot predate either member's registration.
+UPDATE connection c
+JOIN member a ON a.member_id = c.member_a_id
+JOIN member b ON b.member_id = c.member_b_id
+SET c.connected_at = GREATEST(a.joined_at, b.joined_at)
+                   + INTERVAL ((c.member_a_id * 7 + c.member_b_id * 13) % 30) DAY
+WHERE c.connected_at < GREATEST(a.joined_at, b.joined_at);
+
+-- 2. An interview left PENDING on an application that is already closed never
+--    took place; record it as a no-show rather than a pending round.
+UPDATE interview i
+JOIN application a ON a.application_id = i.application_id
+SET i.outcome = 'NO_SHOW'
+WHERE i.outcome = 'PENDING' AND a.status IN ('REJECTED', 'WITHDRAWN');
+
+-- 3. Nobody starts a full-time role before finishing the bachelor's degree.
+UPDATE experience e
+JOIN member m   ON m.member_id = e.member_id
+JOIN education d ON d.member_id = m.member_id AND d.degree = 'BACHELOR'
+SET e.start_date = MAKEDATE(d.end_year, 244)
+WHERE e.start_date < MAKEDATE(d.end_year, 1)
+  AND (e.end_date IS NULL OR e.end_date >= MAKEDATE(d.end_year, 244));
+
+-- 4. Where the listed roles add up to more than the claimed years, trust the record.
+UPDATE member m
+JOIN (SELECT member_id,
+             ROUND(SUM(TIMESTAMPDIFF(MONTH, start_date, COALESCE(end_date, CURDATE()))) / 12, 0) AS comp
+        FROM experience
+       GROUP BY member_id) t ON t.member_id = m.member_id
+SET m.years_experience = t.comp
+WHERE t.comp > m.years_experience;
+
+-- 5. One early role ends before the recorded graduation; the degree finished a
+--    year earlier than recorded, which is the smaller correction of the two.
+UPDATE education
+   SET end_year = 2024
+ WHERE member_id = 284 AND degree = 'BACHELOR';

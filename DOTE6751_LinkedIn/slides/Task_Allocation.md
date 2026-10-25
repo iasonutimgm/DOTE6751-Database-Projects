@@ -2,7 +2,7 @@
 
 **LinkedIn, reverse-engineered · DOTE 6751 · November 2026**
 
-Seven members, 81 person-hours. Every task is technical and follows the dependency chain:
+Seven members, 83 person-hours. Every task is technical and follows the dependency chain:
 nothing could be built before the schema existed, and everything after it could run in
 parallel. Each member also reviewed one artefact they did not author.
 
@@ -13,12 +13,12 @@ parallel. Each member also reviewed one artefact they did not author.
 | Xuanmo AN | 1155260677 | Conceptual and logical E-R model; §6.7 reduction; ERD generator | 5 | 13 |
 | Yi HOU | 1155261383 | DDL, constraints and the four guard triggers | 5 | 13 |
 | Zhao Han HUANG | 1155272384 | Deterministic seed generator and the 22 cross-table invariants | 5 | 13 |
-| Jinyu LI | 1155261567 | Business queries Q07–Q13 and the CSV capture harness | 4 | 11 |
+| Jinyu LI | 1155261567 | Query layer Q01–Q13 (lookups and business analysis) and the CSV capture harness | 4 | 12 |
 | Yitong NI | 1155265810 | Advanced queries Q14–Q18: CTE, window functions, two-hop recursion | 5 | 12 |
 | Shujing YE | 1155261750 | View layer (four views) and the normalization workbook | 4 | 10 |
-| Shiyao ZHANG | 1155261823 | Acceptance: 12 checks, fault-injection suite, consistency audit | 4 | 9 |
+| Shiyao ZHANG | 1155261823 | Acceptance: 12 checks and the fault-injection suite | 4 | 10 |
 
-Total 81 h · average 11.6 h · range 9–13 h · no task below difficulty 4.
+Total 83 h · average 11.9 h · range 10–13 h · no task below difficulty 4.
 
 ## 2. Dependency layers
 
@@ -66,9 +66,10 @@ Layer 1  conceptual + logical model ──► Layer 2  DDL, constraints, trigger
   interview implies a final fail; referrer inside the hiring company; hires ≤ openings; …).
 - `build/verify_data.py` — the 22 cross-table checks that gate every rebuild.
 
-### Jinyu LI · 1155261567 · 11 h · difficulty 4
-- `03_queries.sql` Q07–Q13: funnel by channel, referral programme, skill-gap matching, cycle
-  time, interviewer calibration, internal shortage, stalled screening.
+### Jinyu LI · 1155261567 · 12 h · difficulty 4
+- `03_queries.sql` Q01–Q13: the six lookups first (open roles, a member's applications,
+  interview history, …), then the funnel by channel, referral programme, skill-gap matching,
+  cycle time, interviewer calibration, internal shortage and stalled screening.
 - `build/run_queries.py` — executes each statement and writes one UTF-8 CSV per query plus
   `_summary.json`.
 - Verified that every statement runs under `ONLY_FULL_GROUP_BY` and that no alias collides with
@@ -89,11 +90,11 @@ Layer 1  conceptual + logical model ──► Layer 2  DDL, constraints, trigger
   and the judgement calls a mechanical proof would get wrong.
 - Cross-checked the view definitions against the queries that use them.
 
-### Shiyao ZHANG · 1155261823 · 9 h · difficulty 4
+### Shiyao ZHANG · 1155261823 · 10 h · difficulty 4
 - `sql/06_checks.sql` — twelve acceptance checks; every row must read PASS.
 - The fault-injection suite (fourteen statements that must fail), with the captured error codes
   quoted in `design/Constraint_Inventory.md`.
-- `build/verify_data.py` review and the consistency report: 22 invariants, all green.
+- Reviewed the 22 invariants authored by Zhao Han HUANG and signed off the consistency report.
 - Cross-checked the numbers quoted in the design documents against the CSV files and corrected the two that had drifted.
 
 ## 4. Cross-review matrix

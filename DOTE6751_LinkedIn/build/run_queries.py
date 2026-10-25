@@ -7,8 +7,8 @@ import time
 import json
 import pymysql
 
-SRC = r"D:\桌面\数据库大作业\LinkedIn_交付\sql\03_queries.sql"
-OUT = r"D:\桌面\数据库大作业\LinkedIn_交付\query_results"
+SRC = r"D:\桌面\数据库大作业\DOTE6751_LinkedIn\sql\03_queries.sql"
+OUT = r"D:\桌面\数据库大作业\DOTE6751_LinkedIn\query_results"
 os.makedirs(OUT, exist_ok=True)
 
 text = open(SRC, encoding="utf-8").read()
