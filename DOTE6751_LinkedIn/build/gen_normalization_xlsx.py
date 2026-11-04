@@ -12,7 +12,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-OUT = r"D:\桌面\数据库大作业\LinkedIn_交付\design\Normalization_Proof.xlsx"
+OUT = "Normalization_Proof.xlsx"
 
 NAVY = "0E2A47"
 BLUE = "0A66C2"
@@ -33,6 +33,7 @@ TABLES = [
                ("years_experience", "TINYINT UNSIGNED"), ("open_to_work", "BOOLEAN"),
                ("profile_visibility", "ENUM(3)"), ("joined_at", "DATE")],
         keys="member_id (PK); email (UQ)",
+        ck_summary="member_id (PK); email (UQ)",
         fds=[("member_id", "full_name, headline, email, country, city, years_experience, "
                            "open_to_work, profile_visibility, joined_at", "primary key"),
              ("email", "member_id, full_name, headline, country, city, years_experience, "
@@ -49,6 +50,7 @@ TABLES = [
                ("hq_country", "CHAR(2)"), ("size_band", "ENUM(7)"), ("founded_year", "SMALLINT"),
                ("is_verified", "BOOLEAN")],
         keys="company_id (PK); company_name (UQ)",
+        ck_summary="company_id (PK); company_name (UQ)",
         fds=[("company_id", "company_name, industry, hq_country, size_band, founded_year, is_verified",
               "primary key"),
              ("company_name", "company_id, industry, hq_country, size_band, founded_year, is_verified",
@@ -64,14 +66,16 @@ TABLES = [
                ("title", "VARCHAR(120)"), ("seniority", "ENUM(7)"), ("employment_type", "ENUM(4)"),
                ("work_mode", "ENUM(3)"), ("city", "VARCHAR(60)"), ("country", "CHAR(2)"),
                ("salary_min", "INT"), ("salary_max", "INT"), ("currency", "CHAR(3)"),
-               ("min_years_experience", "TINYINT"), ("openings", "TINYINT"),
+               ("min_years_experience", "TINYINT UNSIGNED"), ("openings", "TINYINT UNSIGNED"),
                ("status", "ENUM(4)"), ("posted_at", "DATETIME"), ("closed_at", "DATETIME")],
         keys="job_id (PK)",
+        ck_summary="job_id (PK)",
         fds=[("job_id", "all other attributes", "primary key")],
         prime="job_id",
         notes="recruiter_id does NOT determine company_id as a schema FD: a recruiter may change "
               "employer while the historical posting stays with the hiring company. If it were an "
-              "FD, this relation would be in 3NF but not BCNF; because it is not, BCNF holds.",
+              "FD, this relation would violate 3NF (and BCNF) due to a transitive dependency "
+              "(job_id -> recruiter_id -> company_id); because it is not, both 3NF and BCNF hold.",
     ),
     dict(
         name="skill", sheet="T04 skill",
@@ -79,6 +83,7 @@ TABLES = [
         attrs=[("skill_id", "INT PK"), ("skill_name", "VARCHAR(60)"), ("skill_family", "ENUM(8)"),
                ("is_emerging", "BOOLEAN")],
         keys="skill_id (PK); skill_name (UQ)",
+        ck_summary="skill_id (PK); skill_name (UQ)",
         fds=[("skill_id", "skill_name, skill_family, is_emerging", "primary key"),
              ("skill_name", "skill_id, skill_family, is_emerging", "candidate key (uk_skill_name)")],
         prime="skill_id, skill_name",
@@ -91,6 +96,7 @@ TABLES = [
                ("years_used", "DECIMAL(3,1)"), ("endorsement_count", "SMALLINT"),
                ("added_at", "DATE")],
         keys="(member_id, skill_id) (PK)",
+        ck_summary="(member_id, skill_id) (PK)",
         fds=[("(member_id, skill_id)", "proficiency, years_used, endorsement_count, added_at",
               "primary key")],
         prime="member_id, skill_id",
@@ -105,6 +111,7 @@ TABLES = [
         attrs=[("job_id", "INT PK FK"), ("skill_id", "INT PK FK"), ("importance", "ENUM(2)"),
                ("min_proficiency", "TINYINT")],
         keys="(job_id, skill_id) (PK)",
+        ck_summary="(job_id, skill_id) (PK)",
         fds=[("(job_id, skill_id)", "importance, min_proficiency", "primary key")],
         prime="job_id, skill_id",
         notes="importance cannot migrate to job_posting (a posting has several skills with "
@@ -118,6 +125,7 @@ TABLES = [
                ("source_channel", "ENUM(3)"), ("status", "ENUM(7)"), ("applied_at", "DATETIME"),
                ("decided_at", "DATETIME"), ("resume_version", "VARCHAR(20)")],
         keys="application_id (PK); (job_id, member_id) (UQ)",
+        ck_summary="application_id (PK); (job_id, member_id) (UQ)",
         fds=[("application_id", "job_id, member_id, source_channel, status, applied_at, decided_at, "
                                 "resume_version", "primary key"),
              ("(job_id, member_id)", "application_id, source_channel, status, applied_at, decided_at, "
@@ -129,11 +137,12 @@ TABLES = [
     dict(
         name="interview", sheet="T08 interview",
         purpose="One round of one application, with interviewer, schedule and assessed outcome.",
-        attrs=[("interview_id", "INT PK"), ("application_id", "INT FK"), ("round_no", "TINYINT"),
+        attrs=[("interview_id", "INT PK"), ("application_id", "INT FK"), ("round_no", "TINYINT UNSIGNED"),
                ("interview_type", "ENUM(5)"), ("scheduled_at", "DATETIME"),
-               ("duration_min", "SMALLINT"), ("interviewer_id", "INT FK"),
+               ("duration_min", "SMALLINT UNSIGNED"), ("interviewer_id", "INT FK"),
                ("outcome", "ENUM(4)"), ("score", "TINYINT NULL")],
         keys="interview_id (PK); (application_id, round_no) (UQ)",
+        ck_summary="interview_id (PK); (application_id, round_no) (UQ)",
         fds=[("interview_id", "application_id, round_no, interview_type, scheduled_at, duration_min, "
                               "interviewer_id, outcome, score", "primary key"),
              ("(application_id, round_no)", "interview_id, interview_type, scheduled_at, duration_min, "
@@ -151,6 +160,7 @@ TABLES = [
                ("relationship", "ENUM(5)"), ("referred_at", "DATETIME"),
                ("bonus_amount", "DECIMAL(10,2)"), ("bonus_status", "ENUM(4)")],
         keys="referral_id (PK); application_id (UQ)",
+        ck_summary="referral_id (PK); application_id (UQ)",
         fds=[("referral_id", "application_id, referrer_id, relationship, referred_at, bonus_amount, "
                              "bonus_status", "primary key"),
              ("application_id", "referral_id, referrer_id, relationship, referred_at, bonus_amount, "
@@ -168,6 +178,7 @@ TABLES = [
                ("degree", "ENUM(6)"), ("field_of_study", "VARCHAR(80)"),
                ("start_year", "SMALLINT"), ("end_year", "SMALLINT NULL")],
         keys="education_id (PK)",
+        ck_summary="education_id (PK)",
         fds=[("education_id", "member_id, school_name, degree, field_of_study, start_year, end_year",
               "primary key")],
         prime="education_id",
@@ -181,14 +192,17 @@ TABLES = [
         attrs=[("experience_id", "INT PK"), ("member_id", "INT FK"), ("company_id", "INT FK"),
                ("title", "VARCHAR(100)"), ("start_date", "DATE"), ("end_date", "DATE NULL"),
                ("is_current", "BOOLEAN"), ("current_member_id", "INT GENERATED")],
-        keys="experience_id (PK); UNIQUE(current_member_id)",
-        fds=[("experience_id", "member_id, company_id, title, start_date, end_date, is_current",
+        keys="experience_id (PK); UNIQUE(current_member_id) [partial unique index for is_current = 1]",
+        ck_summary="experience_id (PK)",
+        fds=[("experience_id", "member_id, company_id, title, start_date, end_date, is_current "
+                               "(current_member_id is a virtual generated column)",
               "primary key")],
         prime="experience_id",
-        notes="'is_current = 1 and member_id = x' determines at most one row: that is a uniqueness "
-              "constraint (the generated-column index), not an FD with a non-key determinant, so "
-              "it does not affect the normal form. title does not determine company_id: two "
-              "engineers at two companies share a title.",
+        notes="'is_current = 1 and member_id = x' determines at most one row: that is a partial "
+              "uniqueness constraint enforced via the nullable generated column current_member_id, "
+              "not a candidate key (candidate keys cannot contain NULLs) and not an FD with a "
+              "non-key determinant, so it does not affect the normal form. title does not determine "
+              "company_id: two engineers at two companies share a title.",
     ),
     dict(
         name="connection", sheet="T12 connection",
@@ -196,6 +210,7 @@ TABLES = [
         attrs=[("member_a_id", "INT PK FK"), ("member_b_id", "INT PK FK"),
                ("connected_at", "DATETIME"), ("connection_type", "ENUM(4)")],
         keys="(member_a_id, member_b_id) (PK); CHECK (member_a_id < member_b_id)",
+        ck_summary="(member_a_id, member_b_id) (PK); CHECK (member_a_id < member_b_id)",
         fds=[("(member_a_id, member_b_id)", "connected_at, connection_type", "primary key")],
         prime="member_a_id, member_b_id",
         notes="The CHECK is part of the key semantics: without it the same undirected edge could "
@@ -255,7 +270,7 @@ for i, t in enumerate(TABLES, start=1):
     ws.cell(row=r, column=1, value=i)
     ws.cell(row=r, column=2, value=t["name"])
     ws.cell(row=r, column=3, value=t["keys"].split(";")[0].strip())
-    ws.cell(row=r, column=4, value=t["keys"])
+    ws.cell(row=r, column=4, value=t["ck_summary"])
     ws.cell(row=r, column=5, value=len(t["attrs"]))
     ws.cell(row=r, column=6, value=len(t["fds"]))
     ws.cell(row=r, column=7, value="yes")
@@ -286,11 +301,11 @@ lines = [
     ("1. Collect the FDs", "Read them off the E-R mapping: an FK gives no FD by itself; the FDs come "
                            "from the identifier of each entity set and from the natural keys the "
                            "business enforces (unique e-mail, unique company name, ...)."),
-    ("2. Candidate keys", "A candidate key is a minimal determinant of all attributes. Where a UNIQUE "
-                          "constraint exists, it is a candidate key by construction, because the DBMS "
-                          "refuses any pair of rows that would violate it."),
-    ("3. 2NF (no partial dependency)", "Only relevant for composite keys: member_skill, job_skill, "
-                                       "interview, connection. For each, every non-prime attribute "
+    ("2. Candidate keys", "A candidate key is a minimal determinant of all attributes (and cannot contain NULLs). "
+                          "Where a non-null UNIQUE constraint exists, it is a candidate key by construction, "
+                          "because the DBMS refuses any pair of rows that would violate it."),
+    ("3. 2NF (no partial dependency)", "Only relevant for composite candidate keys: member_skill, job_skill, "
+                                       "application, interview, connection. For each, every non-prime attribute "
                                        "was tested against each key part separately."),
     ("4. 3NF test", "For every non-trivial FD X -> A: X is a superkey, or A is prime. A violation "
                     "would be a transitive dependency on a non-key determinant."),
@@ -373,7 +388,7 @@ for t in TABLES:
     r = section(ws, r, "3NF / BCNF test")
     checks = [
         ("Prime attributes", t["prime"]),
-        ("2NF", "no partial dependency on a composite key" if "(" in t["keys"]
+        ("2NF", "no partial dependency on a composite key" if "(" in t["ck_summary"]
                 else "single-attribute key, 2NF holds trivially"),
         ("3NF", "every non-trivial FD has a superkey on the left (or a prime RHS) — PASS"),
         ("BCNF", "every determinant is a candidate key — PASS"),
@@ -399,14 +414,15 @@ title_block(ws, "Judgement calls that a mechanical proof would get wrong",
 rows = [
     ("job_posting.recruiter_id", "Looks like recruiter_id → company_id",
      "A recruiter can change employer; the historical posting stays with the company that paid "
-     "for it. Treating the pattern in the seed as an FD would make the relation 3NF but not BCNF."),
+     "for it. Treating the pattern in the seed as an FD would violate 3NF (and BCNF) via the "
+     "transitive dependency job_id → recruiter_id → company_id."),
     ("member.headline", "Looks like member_id → company_name (via 'X at Y')",
      "headline is free text the member wrote. It is a snapshot, not a projection of experience; "
      "parsing it to recover the employer would be wrong and would break after a job change."),
     ("experience.is_current", "Looks like member_id → company_id",
      "Only true while is_current = 1. The fact is 'this row is the live one', enforced by a unique "
      "index over a generated column; it is not an FD on member."),
-    ("education", "Looks like (member_id, school_name, degree) is the key",
+    ("education", "Looks like (member_id, school_name, degree, start_year) is the key",
      "It is a natural key in the data but is not enforced, so it is not used as a candidate key in "
      "the proof. Adding UNIQUE would make it one and would not change the normal form."),
 ]
@@ -424,7 +440,7 @@ for a, b, c in rows:
     ws.cell(row=r, column=3).alignment = Alignment(wrap_text=True, vertical="top")
     ws.row_dimensions[r].height = 52
     r += 1
-widths(ws, {"A": 30, "B": 44, "C": 80})
+widths(ws, {"A": 30, "B": 48, "C": 80})
 
 from openpyxl.worksheet.properties import PageSetupProperties
 for ws_ in wb.worksheets:
@@ -436,4 +452,3 @@ for ws_ in wb.worksheets:
 
 wb.save(OUT)
 print("wrote", OUT, os.path.getsize(OUT), "bytes", len(wb.sheetnames), "sheets")
-print(wb.sheetnames)

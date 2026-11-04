@@ -76,27 +76,27 @@ JOIN company c ON c.company_id = j.company_id
 JOIN member  m ON m.member_id  = j.recruiter_id
 WHERE j.status = 'OPEN';
 
--- Funnel per posting, materialised as counts so a dashboard does not have
--- to re-aggregate 250 applications on every page view.
+-- Funnel per posting, encapsulating the status aggregation into a virtual
+-- table so dashboards and downstream queries share a consistent funnel definition.
 CREATE VIEW v_job_funnel AS
 SELECT j.job_id,
        j.title,
        j.company_id,
-       SUM(a.status = 'SUBMITTED')  AS submitted,
-       SUM(a.status = 'SCREENING')  AS screening,
-       SUM(a.status = 'INTERVIEW')  AS interviewing,
-       SUM(a.status = 'OFFER')      AS offered,
-       SUM(a.status = 'HIRED')      AS hired,
-       SUM(a.status = 'REJECTED')   AS rejected,
-       SUM(a.status = 'WITHDRAWN')  AS withdrawn,
-       COUNT(a.application_id)      AS applications
+       COALESCE(SUM(a.status = 'SUBMITTED'), 0)  AS submitted,
+       COALESCE(SUM(a.status = 'SCREENING'), 0)  AS screening,
+       COALESCE(SUM(a.status = 'INTERVIEW'), 0)  AS interviewing,
+       COALESCE(SUM(a.status = 'OFFER'), 0)      AS offered,
+       COALESCE(SUM(a.status = 'HIRED'), 0)      AS hired,
+       COALESCE(SUM(a.status = 'REJECTED'), 0)   AS rejected,
+       COALESCE(SUM(a.status = 'WITHDRAWN'), 0)  AS withdrawn,
+       COUNT(a.application_id)                   AS applications
 FROM job_posting j
 LEFT JOIN application a ON a.job_id = j.job_id
 GROUP BY j.job_id, j.title, j.company_id;
 
 -- Demand (postings asking for a skill) against supply (members claiming
--- it at proficiency >= 4).  Both sides are pre-aggregated so the view is
--- cheap to scan; Q17 uses the same shape with a stricter definition.
+-- it at proficiency >= 4). Both sides are aggregated via independent scalar
+-- subqueries to avoid M:N join fan-out; Q17 uses the same shape with a stricter definition.
 CREATE VIEW v_skill_demand_supply AS
 SELECT s.skill_id,
        s.skill_name,
@@ -123,7 +123,7 @@ BEGIN
       SET MESSAGE_TEXT = 'application: a final status requires decided_at';
   END IF;
 
-  IF NEW.status IN ('SUBMITTED', 'SCREENING', 'INTERVIEW') AND NEW.decided_at IS NOT NULL THEN
+  IF NEW.status IN ('SUBMITTED', 'SCREENING', 'INTERVIEW', 'OFFER') AND NEW.decided_at IS NOT NULL THEN
     SIGNAL SQLSTATE '45000'
       SET MESSAGE_TEXT = 'application: an open status must not carry decided_at';
   END IF;
