@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """ER diagrams for the LinkedIn reverse-engineering deliverable.
 
-Three artefacts:
+Five diagram families:
   ERD_logical_full   every table, PK bold, FK italic, crow's foot at the many end
   ERD_module_*       three subject areas
   ERD_conceptual     Chen notation: entity rectangles, relationship diamonds, 1/N
@@ -35,10 +35,10 @@ TABLES = {
                      ("years_used", ""), ("endorsement_count", ""), ("added_at", "")],
     "job_skill": [("job_id", "PK FK"), ("skill_id", "PK FK"), ("importance", ""),
                   ("min_proficiency", "")],
-    "application": [("application_id", "PK"), ("job_id", "FK"), ("member_id", "FK"),
+    "application": [("application_id", "PK"), ("job_id", "FK UQ1"), ("member_id", "FK UQ1"),
                     ("source_channel", ""), ("status", ""), ("applied_at", ""),
                     ("decided_at", ""), ("resume_version", "")],
-    "interview": [("interview_id", "PK"), ("application_id", "FK"), ("round_no", "UQ"),
+    "interview": [("interview_id", "PK"), ("application_id", "FK UQ1"), ("round_no", "UQ1"),
                   ("interview_type", ""), ("scheduled_at", ""), ("duration_min", ""),
                   ("interviewer_id", "FK"), ("outcome", ""), ("score", "")],
     "referral": [("referral_id", "PK"), ("application_id", "FK UQ"), ("referrer_id", "FK"),
@@ -53,8 +53,9 @@ TABLES = {
                    ("connection_type", "")],
 }
 
-EDGES = [
+LOGICAL_EDGES = [
     ("member", "application", "1", "N", "applies"),
+    ("member", "job_posting", "1", "N", "posts"),
     ("member", "interview", "1", "N", "interviews"),
     ("member", "referral", "1", "N", "refers"),
     ("company", "job_posting", "1", "N", "advertises"),
@@ -66,9 +67,17 @@ EDGES = [
     ("member", "member_skill", "1", "N", "claims"),
     ("member", "education", "1", "N", "studied"),
     ("member", "experience", "1", "N", "worked"),
-    ("member", "connection", "1", "N", "connects"),
+    ("member", "connection", "1", "N", "member A"),
+    ("member", "connection", "1", "N", "member B"),
     ("application", "interview", "1", "N", "schedules"),
     ("application", "referral", "1", "1", "produced by"),
+]
+
+# The conceptual model shows connection as the recursive M:N relationship itself.
+# The logical diagrams instead show the relation produced by reducing that relationship.
+CONCEPTUAL_EDGES = [
+    edge for edge in LOGICAL_EDGES
+    if not (edge[0] == "member" and edge[1] == "connection")
 ]
 
 
@@ -201,9 +210,22 @@ def diagram(keys, edges, out_png, title=None, cols=3, cw=352, gapx=52, gapy=84, 
             boxes[keys[i]] = draw_table(ax, keys[i], x, y, cw)
             x += cw + gapx
         y += row_h[r] + gapy
+    pair_totals = {}
+    for a, b, *_ in edges:
+        pair_totals[(a, b)] = pair_totals.get((a, b), 0) + 1
+    pair_seen = {}
     for a, b, c1, c2, lab in edges:
         if a in boxes and b in boxes:
             pts, orient = route(boxes[a], boxes[b], boxes, b, Wc)
+            pair = (a, b)
+            occurrence = pair_seen.get(pair, 0)
+            pair_seen[pair] = occurrence + 1
+            if pair_totals[pair] > 1:
+                delta = (occurrence - (pair_totals[pair] - 1) / 2) * 18
+                if orient == "h":
+                    pts = [(x, y + delta) for x, y in pts]
+                else:
+                    pts = [(x + delta, y) for x, y in pts]
             draw_edge(ax, pts, orient)
     if title:
         ax.text(pad, 18, title, fontsize=10.4, color=GRAY, family=FONT, va="center")
@@ -218,7 +240,6 @@ def diagram(keys, edges, out_png, title=None, cols=3, cw=352, gapx=52, gapy=84, 
 POS = {
     "education":     (250, 170),
     "member":        (250, 480),
-    "connection":    (250, 790),
     "experience":    (250, 1090),
     "company":       (760, 1170),
     "job_posting":   (1290, 1170),
@@ -236,7 +257,6 @@ POS = {
 DIAMOND_POS = {
     ("member", "education"):      (250, 325),
     ("member", "member_skill"):   (830, 238),
-    ("member", "connection"):     (250, 635),
     ("member", "experience"):     (560, 1000),   # OFF: midpoint is the connection box
     ("member", "application"):    (970, 655),
     ("member", "interview"):      (970, 500),
@@ -249,9 +269,34 @@ DIAMOND_POS = {
     ("skill", "job_skill"):       (1195, 890),
     ("application", "interview"): (1690, 675),
     ("application", "referral"):  (1500, 390),   # OFF: midpoint is the interview box
+    ("member", "job_posting"):    (900, 970),
 }
 
-LABELS = {(a, b): lab for a, b, c1, c2, lab in EDGES}
+LABELS = {(a, b): lab for a, b, c1, c2, lab in CONCEPTUAL_EDGES}
+
+
+def draw_recursive_connection(ax, member_pos, ew, eh):
+    """Draw member -- connects -- member with two explicit role lines."""
+    mx, my = member_pos
+    dx, dy = mx, my + 245
+    w, h = 128, 62
+    left_member = (mx - 42, my + eh / 2)
+    right_member = (mx + 42, my + eh / 2)
+    left_diamond = (dx - w / 2, dy)
+    right_diamond = (dx + w / 2, dy)
+    ax.plot([left_member[0], left_diamond[0]], [left_member[1], left_diamond[1]],
+            color=LGRAY, lw=1.05, zorder=2)
+    ax.plot([right_member[0], right_diamond[0]], [right_member[1], right_diamond[1]],
+            color=LGRAY, lw=1.05, zorder=2)
+    ax.add_patch(Polygon([[dx, dy - h / 2], [dx + w / 2, dy], [dx, dy + h / 2],
+                          [dx - w / 2, dy]], closed=True, facecolor="#E8F0F9",
+                         edgecolor=BLUE, lw=1.1, zorder=4))
+    ax.text(dx, dy, "connects", fontsize=6.8, ha="center", va="center", color=NAVY,
+            family=FONT, zorder=5)
+    ax.text(mx - 92, my + 102, "N · member_a", fontsize=7.2, color=BLUE,
+            ha="center", va="center", family=FONT, zorder=6)
+    ax.text(mx + 92, my + 102, "N · member_b", fontsize=7.2, color=BLUE,
+            ha="center", va="center", family=FONT, zorder=6)
 
 
 def conceptual(out_png):
@@ -270,7 +315,7 @@ def conceptual(out_png):
         ax.text(x, y, name, fontsize=8.8, color="white", ha="center", va="center",
                 fontweight="bold", family=FONT, zorder=7)
 
-    for a, b, c1, c2, lab in EDGES:
+    for a, b, c1, c2, lab in CONCEPTUAL_EDGES:
         if a not in POS or b not in POS:
             continue
         dx, dy = DIAMOND_POS[(a, b)]
@@ -290,6 +335,8 @@ def conceptual(out_png):
             ax.text(px, py, c, fontsize=8.6, color=BLUE, fontweight="bold",
                     ha="center", va="center", family=FONT, zorder=6)
 
+    draw_recursive_connection(ax, POS["member"], ew, eh)
+
     ax.text(40, CH - 26, "Attributes and keys are catalogued in design/Entity_Relationship_Catalog.md; "
                         "the logical diagram resolves every relationship set into a table.",
             fontsize=8.4, color=GRAY, family=FONT)
@@ -304,23 +351,23 @@ if __name__ == "__main__":
     out = r"D:\桌面\数据库大作业\LinkedIn_交付\erd"
     os.makedirs(out, exist_ok=True)
     all_keys = list(TABLES.keys())
-    diagram(all_keys, EDGES, os.path.join(out, "ERD_logical_full.png"),
+    diagram(all_keys, LOGICAL_EDGES, os.path.join(out, "ERD_logical_full.png"),
             "LinkedIn hiring loop - logical schema   |   PK bold, FK italic   |   "
             "crow's foot marks the many side", cols=3, cw=372, gapx=56, gapy=92, pad=56)
 
     mod_a = ["member", "skill", "member_skill", "education", "experience", "connection"]
-    diagram(mod_a, [e for e in EDGES if e[0] in mod_a and e[1] in mod_a],
+    diagram(mod_a, [e for e in LOGICAL_EDGES if e[0] in mod_a and e[1] in mod_a],
             os.path.join(out, "ERD_module_identity.png"),
             "Module A - identity: the member, the credential record and the social graph",
             cols=3, cw=352, gapx=64, gapy=90)
 
     mod_b = ["company", "job_posting", "skill", "job_skill", "experience"]
-    diagram(mod_b, [e for e in EDGES if e[0] in mod_b and e[1] in mod_b],
+    diagram(mod_b, [e for e in LOGICAL_EDGES if e[0] in mod_b and e[1] in mod_b],
             os.path.join(out, "ERD_module_demand.png"),
             "Module B - demand: employer, posting and the skill ask", cols=3, cw=382, gapx=70, gapy=90)
 
     mod_c = ["job_posting", "application", "interview", "referral", "member"]
-    diagram(mod_c, [e for e in EDGES if e[0] in mod_c and e[1] in mod_c],
+    diagram(mod_c, [e for e in LOGICAL_EDGES if e[0] in mod_c and e[1] in mod_c],
             os.path.join(out, "ERD_module_hiring_loop.png"),
             "Module C - the hiring loop: application, interview, referral", cols=3, cw=382, gapx=70, gapy=90)
 

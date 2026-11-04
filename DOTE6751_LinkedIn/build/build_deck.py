@@ -792,7 +792,7 @@ footer(s, 13)
 # =====================================================================
 s = new_slide(
     "Backup slide. If the questions go to the model, the Chen diagram is here: twelve entity "
-    "sets, fifteen relationship sets, with cardinality ratios on every edge. The five "
+    "sets, sixteen relationship sets, with cardinality ratios on every edge. The five "
     "questions on the right are the ones we expect: why twelve tables, why no current "
     "employer column, why the referral is not a column on the application, whether the data "
     "is real, and what happens if a referrer leaves the company. Short answers are on the "

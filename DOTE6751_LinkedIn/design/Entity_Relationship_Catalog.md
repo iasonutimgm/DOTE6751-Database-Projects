@@ -43,8 +43,8 @@ has at least one posting; the seed leaves 0 companies without a posting.
 | `profile_visibility` | ENUM(PUBLIC, CONNECTIONS, PRIVATE) | no | |
 | `joined_at` | DATE | no | |
 
-*Identifier:* `member_id`. *Participation:* total in **claims** (a profile with no skill
-would be invisible to the matching queries), partial in **studied** and **worked**.
+*Identifier:* `member_id`. *Participation:* partial in **claims**, **studied** and
+**worked**; a member may exist before any of those facts are recorded.
 
 ### E3 · job_posting
 
@@ -65,9 +65,9 @@ would be invisible to the matching queries), partial in **studied** and **worked
 | `status` | ENUM(DRAFT, OPEN, CLOSED, ON_HOLD) | no | lifecycle |
 | `posted_at`, `closed_at` | DATETIME | no / yes | `closed_at ≥ posted_at` |
 
-*Identifier:* `job_id`. *Participation:* total in **advertises** (every posting has a
-company) and **receives** (a posting with no application is legal only for DRAFT/ON_HOLD,
-a rule the seed respects).
+*Identifier:* `job_id`. *Participation:* total in **advertises** and **posts** (every
+posting has a company and a recruiter), partial in **receives** (a posting may exist
+before it receives an application).
 
 ### E4 · skill
 
@@ -78,8 +78,8 @@ a rule the seed respects).
 | `skill_family` | ENUM, 8 families | no | LANGUAGE, FRAMEWORK, DATABASE, CLOUD, DATA, PRODUCT, DESIGN, SOFT |
 | `is_emerging` | BOOLEAN | no | flags skills with thin proven supply (Q17) |
 
-*Identifier:* `skill_id`. *Participation:* total in **held_as** and **asked_as** in
-practice; partially in the model (an unused skill may exist).
+*Identifier:* `skill_id`. *Participation:* partial in **held_as** and **asked_as**; an
+unused vocabulary term may exist.
 
 ### E5 · member_skill — associative entity of **claims**
 
@@ -185,18 +185,6 @@ seed does not violate but the schema does not enforce — recorded as a known ga
 *Identifier:* `experience_id`. The generated column is the portable MySQL 8.0 substitute
 for the partial index `UNIQUE (member_id) WHERE is_current = 1`.
 
-### E12 · connection
-
-| Attribute | Domain | Null | Notes |
-|---|---|---|---|
-| `member_a_id` | INT | no | **partial identifier**, FK → member, `a < b` |
-| `member_b_id` | INT | no | **partial identifier**, FK → member |
-| `connected_at` | DATETIME | no | |
-| `connection_type` | ENUM(COLLEAGUE, CLASSMATE, FRIEND, FOLLOW) | no | |
-
-*Identifier:* the ordered pair. The ordering constraint is part of the identifier, not a
-presentation choice: it is what makes the relation a *set* of undirected edges.
-
 ---
 
 ## 2. Relationship sets
@@ -207,10 +195,10 @@ presentation choice: it is what makes the relation a *set* of undirected edges.
 | R2 | **employs** | company → experience | 1 : N | experience total | — | `experience.company_id` |
 | R3 | **studied** | member → education | 1 : N | education total | — | `education.member_id` |
 | R4 | **worked** | member → experience | 1 : N | experience total | `title`, `start_date`, `end_date`, `is_current` | `experience` table |
-| R5 | **claims** | member → member_skill | 1 : N | member total | `proficiency`, `years_used`, `endorsement_count`, `added_at` | `member_skill` table |
-| R6 | **held_as** | skill → member_skill | 1 : N | total | — | `member_skill.skill_id` |
-| R7 | **requires** | job_posting → job_skill | 1 : N | job total | `importance`, `min_proficiency` | `job_skill` table |
-| R8 | **asked_as** | skill → job_skill | 1 : N | total | — | `job_skill.skill_id` |
+| R5 | **claims** | member → member_skill | 1 : N | member partial, member_skill total | `proficiency`, `years_used`, `endorsement_count`, `added_at` | `member_skill` table |
+| R6 | **held_as** | skill → member_skill | 1 : N | skill partial, member_skill total | — | `member_skill.skill_id` |
+| R7 | **requires** | job_posting → job_skill | 1 : N | job total by business rule, job_skill total by FK | `importance`, `min_proficiency` | `job_skill` table |
+| R8 | **asked_as** | skill → job_skill | 1 : N | skill partial, job_skill total | — | `job_skill.skill_id` |
 | R9 | **applies** | member → application | 1 : N | application total | `source_channel`, `status`, `applied_at`, `decided_at`, `resume_version` | `application` table |
 | R10 | **receives** | job_posting → application | 1 : N | application total | — | `application.job_id` |
 | R11 | **schedules** | application → interview | 1 : N | interview total | `round_no`, `interview_type`, `scheduled_at`, `duration_min`, `outcome`, `score` | `interview` table |
@@ -218,6 +206,7 @@ presentation choice: it is what makes the relation a *set* of undirected edges.
 | R13 | **produced_by** | application → referral | 1 : 1 | referral total, application partial | `relationship`, `referred_at`, `bonus_amount`, `bonus_status` | `referral.application_id` (UNIQUE) |
 | R14 | **refers** | member → referral | 1 : N | referral total | — | `referral.referrer_id` |
 | R15 | **connects** | member ↔ member | M : N (self) | partial both sides | `connected_at`, `connection_type` | `connection` table |
+| R16 | **posts** | member → job_posting | 1 : N | member partial, job_posting total | — | `job_posting.recruiter_id` |
 
 ### Notes on the four non-obvious relationships
 

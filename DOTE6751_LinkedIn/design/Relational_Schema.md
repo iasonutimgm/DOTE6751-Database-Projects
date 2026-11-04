@@ -119,10 +119,10 @@ The seven reduction rules of §6.7 and where each one fires in this design:
 
 | §6.7 rule | Textbook statement (paraphrased) | Application here |
 |---|---|---|
-| **6.7.1 Strong entity sets** | Each strong entity set becomes a relation with the same attributes; the entity identifier becomes the primary key. | `member`, `company`, `job_posting`, `skill`, `interview`, `connection` are taken over directly. |
+| **6.7.1 Strong entity sets** | Each strong entity set becomes a relation with the same attributes; the entity identifier becomes the primary key. | `member`, `company`, `job_posting`, `skill` and `interview` are taken over directly. `connection` is produced by the recursive M:N rule below. |
 | **6.7.2 Weak entity sets** | A weak entity set becomes a relation containing the owner's key plus its discriminator. | No weak entity is used. `application` is *not* weak: it has its own surrogate identifier and an independent lifetime after the posting closes. |
 | **6.7.3 Relationship sets — 1:1** | Either participating relation receives the other's key as a foreign key; choose the one with total participation. | `referral` ← `application_id`. The referral side is total, the application side is partial, so the key goes to `referral` and is made UNIQUE. |
-| **6.7.4 Relationship sets — 1:N** | The key of the "one" side migrates into the "many" side. | `job_posting.company_id`, `job_posting.recruiter_id`, `application.job_id`, `application.member_id`, `interview.application_id`, `interview.interviewer_id`, `referral.referrer_id`, `education.member_id`, `experience.member_id`, `experience.company_id`, `member_skill.member_id`, `job_skill.job_id`. |
+| **6.7.4 Relationship sets — 1:N** | The key of the "one" side migrates into the "many" side. | **posts:** `member.member_id` migrates to `job_posting.recruiter_id`; the remaining migrations are `job_posting.company_id`, `application.job_id`, `application.member_id`, `interview.application_id`, `interview.interviewer_id`, `referral.referrer_id`, `education.member_id`, `experience.member_id`, `experience.company_id`, `member_skill.member_id`, `job_skill.job_id`. |
 | **6.7.5 Relationship sets — M:N** | A new relation is created whose key is the union of both keys. | `connection` (member ↔ member, self), `member_skill` and `job_skill` (each M:N with descriptive attributes). |
 | **6.7.6 Multivalued attributes** | Each multivalued attribute becomes its own relation keyed by the owner plus the value. | "Skills of a member" and "skills a posting asks for" are modelled as `member_skill` / `job_skill` rather than as repeating groups. |
 | **6.7.7 Generalisation / specialisation** | Each specialisation becomes a relation containing the superclass key plus its own attributes. | Not used: recruiter, referrer and interviewer are *roles* (different relationship sets over one entity), not subtypes. This avoids the join-per-role that a `recruiter` subtype would force on every query. |
@@ -132,13 +132,14 @@ The seven reduction rules of §6.7 and where each one fires in this design:
 | Relationship | Cardinality | Participation | Implementation | Enforcement |
 |---|---|---|---|---|
 | advertises | 1:N | posting total | `job_posting.company_id` NOT NULL | FK |
+| posts | 1:N | posting total, member partial | `job_posting.recruiter_id` NOT NULL | FK |
 | employs | 1:N | experience total | `experience.company_id` NOT NULL | FK |
 | studied | 1:N | education total | `education.member_id` NOT NULL | FK |
 | worked | 1:N | experience total | `experience.member_id` NOT NULL | FK |
-| claims | 1:N | member total | `member_skill.member_id` NOT NULL | FK + CHECK proficiency |
-| held_as | 1:N | total | `member_skill.skill_id` NOT NULL | FK |
-| requires | 1:N | posting total | `job_skill.job_id` NOT NULL | FK + trigger-free CHECK |
-| asked_as | 1:N | total | `job_skill.skill_id` NOT NULL | FK |
+| claims | 1:N | member partial, member_skill total | `member_skill.member_id` NOT NULL | FK + CHECK proficiency |
+| held_as | 1:N | skill partial, member_skill total | `member_skill.skill_id` NOT NULL | FK |
+| requires | 1:N | posting total by business rule, job_skill total by FK | `job_skill.job_id` NOT NULL | FK + seed/audit rule |
+| asked_as | 1:N | skill partial, job_skill total | `job_skill.skill_id` NOT NULL | FK |
 | applies | 1:N | application total | `application.member_id` NOT NULL | FK + UNIQUE(job, member) |
 | receives | 1:N | application total | `application.job_id` NOT NULL | FK |
 | schedules | 1:N | interview total | `interview.application_id` NOT NULL | FK + UNIQUE(app, round) + trigger |
