@@ -4,22 +4,22 @@
 Target length 13 minutes, 14 slides. The speaker notes inside `LinkedIn.pptx` carry the
 same content; this file adds timing, transitions and delivery cues.
 
-| Slide | Section | Start | End | Speaker |
-|---|---|---|---|---|
-| 1 | Title | 0:00 | 0:40 | Xuanmo AN |
-| 2 | Motivation | 0:40 | 1:50 | Xuanmo AN |
-| 3 | The hiring loop | 1:50 | 3:20 | Xuanmo AN |
-| 4 | ERD panorama | 3:20 | 4:30 | Jinyu LI |
-| 5 | Module A — identity | 4:30 | 5:30 | Jinyu LI |
-| 6 | Modules B and C | 5:30 | 6:30 | Jinyu LI |
-| 7 | The twelve tables | 6:30 | 7:20 | Zhao Han HUANG |
-| 8 | Evidence I — channels | 7:20 | 8:30 | Yitong NI |
-| 9 | Evidence II — skill gap | 8:30 | 9:50 | Yitong NI |
-| 10 | Evidence III — warm intro | 9:50 | 11:10 | Yitong NI |
-| 11 | Evidence IV — cycle time | 11:10 | 12:10 | Shujing YE |
-| 12 | Improvements and limits | 12:10 | 12:50 | Yi HOU |
-| 13 | Task allocation | 12:50 | 13:10 | Shiyao ZHANG |
-| 14 | Q&A backup | 13:10 | — | all |
+| Slide | Section | Start | End |
+|---|---|---|---|
+| 1 | Title | 0:00 | 0:40 |
+| 2 | Motivation | 0:40 | 1:50 |
+| 3 | The hiring loop | 1:50 | 3:20 |
+| 4 | ERD panorama | 3:20 | 4:30 |
+| 5 | Module A — identity | 4:30 | 5:30 |
+| 6 | Modules B and C | 5:30 | 6:30 |
+| 7 | The twelve tables | 6:30 | 7:20 |
+| 8 | Evidence I — channels | 7:20 | 8:30 |
+| 9 | Evidence II — skill gap | 8:30 | 9:50 |
+| 10 | Evidence III — warm intro | 9:50 | 11:10 |
+| 11 | Evidence IV — cycle time | 11:10 | 12:10 |
+| 12 | Improvements and limits | 12:10 | 12:50 |
+| 13 | Task allocation | 12:50 | 13:10 |
+| 14 | Q&A backup | 13:10 | — |
 
 ---
 
